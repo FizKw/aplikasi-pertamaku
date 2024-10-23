@@ -15,7 +15,7 @@ services:
       context: ../frontend
       dockerfile: Dockerfile
       args: 
-      - API_URL: "http://localhost:3000"
+        API_URL: "http://localhost:3000"
     volumes:
       - ../frontend:/app/frontend
       - /app/frontend/node_modules
