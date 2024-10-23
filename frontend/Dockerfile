@@ -8,6 +8,6 @@ RUN npm run build
 
 FROM nginx as production-stage
 EXPOSE 80
-RUN mkdir /app/frontend
+RUN mkdir /app
 COPY nginx.conf /etc/nginx/default.conf
 COPY --from=build-stage /app/frontend/dist /app/frontend
