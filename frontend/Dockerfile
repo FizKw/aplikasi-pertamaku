@@ -7,9 +7,8 @@ COPY . .
 RUN npm run build
 
 FROM nginx as production-stage
-EXPOSE 80
 RUN mkdir /app
 COPY nginx.conf /etc/nginx/default.conf
-COPY --from=build-stage /app/frontend/dist ./public
+COPY --from=build-stage /app/frontend/dist /usr/share/nginx/html
 EXPOSE 5173
 CMD [ "nginx", "-g", "daemon off;" ]
