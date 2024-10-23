@@ -1,0 +1,49 @@
+services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    working_dir: /usr/src/app
+    networks:
+      - node-network
+    volumes:
+      - .node:/usr/src/app
+      - /usr/src/app/node_modules
+    tty: true
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    working_dir: /usr/src/app
+    networks:
+      - node-network
+    volumes:
+      - ./frontend:/usr/src/app
+      - usr/src/app/node_modules
+    tty: true
+    ports:
+      - "5173:5173"
+
+  nginx:
+    build: 
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    restart: always
+    tty: true
+    ports:
+      - "80:80"
+    networks:
+      - node-network
+    depends_on:
+      - backend
+      - frontend
+
+networks:
+  node-network:
+    driver: bridge

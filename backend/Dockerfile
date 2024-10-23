@@ -1,7 +1,5 @@
 FROM node:20
-WORKDIR /app/backend
-COPY package*.json ./
+WORKDIR /usr/src/app
+COPY package*.json .
 RUN npm install
-COPY . .
-EXPOSE 3000
-CMD [ "npm", "start" ]
+CMD [ "npm". "run", "start" ]
