@@ -1,7 +1,7 @@
 FROM node:20 as build-stage
 ENV VITE_API_URL ${API_URL}
 WORKDIR /app/frontend
-COPY package*.json ./app/frontend
+COPY package*.json ./
 RUN npm install -g pnpm && pnpm install
 COPY ./ .
 RUN npm run build
