@@ -3,7 +3,6 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/hafizh/',
   plugins: [vue()],
   server:{
     watch:{
@@ -12,5 +11,6 @@ export default defineConfig({
     host: true,
     strictPort: true,
     port: 5173,
-  }
+  },
+
 })
