@@ -14,13 +14,14 @@ services:
     build: 
       context: ../frontend
       dockerfile: Dockerfile
+      args: 
+      - API_URL: "http://localhost:3000"
     volumes:
       - ../frontend:/app/frontend
       - /app/frontend/node_modules
     networks:
       - app-networks
-    args: 
-      - API_URL: "http://localhost:3000"
+    
 
   webserver:
     depends_on:
