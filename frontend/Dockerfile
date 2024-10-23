@@ -10,5 +10,6 @@ FROM nginx as production-stage
 EXPOSE 80
 RUN mkdir /app
 COPY nginx.conf /etc/nginx/default.conf
-COPY --from=build-stage /app/frontend/dist /app/frontend
+COPY --from=build-stage /app/frontend/dist ./public
+EXPOSE 5173
 CMD [ "nginx", "-g", "daemon off;" ]
