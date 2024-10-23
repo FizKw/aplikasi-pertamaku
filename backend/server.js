@@ -15,7 +15,7 @@ app.use(cors({
 
 const connection = new sqlite3.Database('./db/aplikasi.db')
 
-app.get('/api/user/:id', (req, res) => {
+app.get('/hafizh/api/user/:id', (req, res) => {
   // const query = `SELECT * FROM users WHERE id = ${req.params.id}`;
   const query = `SELECT * FROM users WHERE id = ?`;
   // new
@@ -30,7 +30,7 @@ app.get('/api/user/:id', (req, res) => {
   });
 });
 
-app.post('/api/user/:id/change-email', (req, res) => {
+app.post('/hafizh/api/user/:id/change-email', (req, res) => {
   const newEmail = req.body.email;
   // const query = `UPDATE users SET email = '${newEmail}' WHERE id = ${req.params.id}`;
   const query = `UPDATE users SET email = ? WHERE id = ?`;
@@ -48,7 +48,7 @@ app.post('/api/user/:id/change-email', (req, res) => {
   });
 });
 
-app.get('/api/file', (req, res) => {
+app.get('/hafizh/api/file', (req, res) => {
   const __filename = fileURLToPath(import.meta.url); 
   const __dirname = path.dirname(__filename); 
 
