@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import CommentSection from './components/CommentSection.vue';
 
-const HOST_NAME = `${import.meta.env.VITE_API_URL}` || 'http://localhost:3000';
+const HOST_NAME = `${import.meta.env.VITE_API_URL}` || 'http://localhost';
 
 const userId = ref('');
 const users = ref(null);

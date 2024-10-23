@@ -19,6 +19,8 @@ services:
       - /app/frontend/node_modules
     networks:
       - app-networks
+    args: 
+      - API_URL: "http://localhost:3000"
 
   webserver:
     depends_on:
@@ -35,6 +37,6 @@ services:
     networks:
       - app-networks
 
-  networks:
-    app-networks:
-      driver: bridge
+networks:
+  app-networks:
+    driver: bridge
