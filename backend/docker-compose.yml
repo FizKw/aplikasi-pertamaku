@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: backend
     volumes:
-      - ./backend:/app/backend
+      - .:/app/backend
       - /app/backend/node_modules
     networks:
       - app-networks
@@ -15,7 +15,7 @@ services:
       context: ../frontend
       dockerfile: Dockerfile
       args: 
-        API_URL: "http://localhost:3000"
+        API_URL: "http://localhost:3000/api"
     volumes:
       - ../frontend:/app/frontend
       - /app/frontend/node_modules
