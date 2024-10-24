@@ -22,7 +22,6 @@ app.use(cors({
 
 var csrfProtect = csrf({
   cookie: true, 
-  sameSite: 'strict'
 })
 
 app.use(csrfProtect)
