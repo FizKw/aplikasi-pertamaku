@@ -50,9 +50,7 @@ const changeEmail = async () => {
   // });
 };
 
-onMounted(() => {
-  fetchCsrfToken();
-})
+
 </script>
 
 <template>
