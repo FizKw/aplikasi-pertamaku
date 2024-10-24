@@ -26,7 +26,7 @@ axios.defaults.withCredentials = true;
 
 const getUser = async () => {
   await axios.get(`${HOST_NAME}/api/user/${userId.value}`).then((response) => {
-    users.value = response.data.json();
+    users.value = response.data;
     console.log(response.data)
   });
 
