@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import CommentSection from './components/CommentSection.vue';
 import axios from "axios";
 import DOMPurify from 'dompurify';
@@ -23,22 +23,34 @@ const fetchCsrfToken = async () =>{
 }
 
 const getUser = async () => {
-  const response = await fetch(`${HOST_NAME}/api/user/${userId.value}`);
+  await axios.get(`${HOST_NAME}/api/user/${userId.value}`).then((response) => {
+    users.value = response.json();
+  });
+
+  // const response = await fetch(`${HOST_NAME}/api/user/${userId.value}`);
   // const response = await fetch(`http://localhost:3000/api/user/${userId.value}`);
-  users.value = await response.json();
+  // users.value = await response.json();
 };
 
 const changeEmail = async () => {
-    // await fetch('http://localhost:3000/api/change-email', {
-  await fetch(`${HOST_NAME}/api/user/${userId.value}/change-email` , {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({ email: newEmail.value }).toString(),
-    // body: `email=${newEmail.value}`,
+  await axios.post(`${HOST_NAME}/api/user/${userId.value}/change-emai;`, {
+      email: newEmail.value,
   });
+
+    // await fetch('http://localhost:3000/api/change-email', {
+  // await fetch(`${HOST_NAME}/api/user/${userId.value}/change-email` , {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/x-www-form-urlencoded',
+  //   },
+  //   body: new URLSearchParams({ email: newEmail.value }).toString(),
+    // body: `email=${newEmail.value}`,
+  // });
 };
+
+onMounted(() => {
+  fetchCsrfToken();
+})
 </script>
 
 <template>

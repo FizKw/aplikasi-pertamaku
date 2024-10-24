@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import sqlite3 from 'sqlite3';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import csrf from 'csurf';
 
 const app = express();
 app.use(express.json())
@@ -19,7 +20,6 @@ app.use(cookieParser);
 const connection = new sqlite3.Database('./db/aplikasi.db')
 
 // CSRF
-var csrf = require('csurf');
 var csrfProtection = csrf({cookie: true});
 
 app.get('api/getcsrftoken', csrfProtection, (req, res) => {
