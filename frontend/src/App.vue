@@ -4,7 +4,7 @@ import CommentSection from './components/CommentSection.vue';
 import axios from "axios";
 import DOMPurify from 'dompurify';
 
-const HOST_NAME = `${import.meta.env.VITE_API_URL}` || 'http://localhost';
+const HOST_NAME = `${import.meta.env.VITE_API_URL}` || 'http://localhost/';
 
 const userId = ref('');
 const users = ref(null);
