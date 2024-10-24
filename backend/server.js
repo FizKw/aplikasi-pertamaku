@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import sqlite3 from 'sqlite3';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(express.json())
@@ -12,10 +13,20 @@ app.use(cors({
   origin: '*',
   optionsSuccessStatus: 200,
 }));
+// New
+app.use(cookieParser);
 
 const connection = new sqlite3.Database('./db/aplikasi.db')
 
-app.get('/api/user/:id', (req, res) => {
+// CSRF
+var csrf = require('csurf');
+var csrfProtection = csrf({cookie: true});
+
+app.get('api/getcsrftoken', csrfProtection, (req, res) => {
+  return res.json({csrfToken: req.csrfToken() });
+});
+
+app.get('/api/user/:id', csrfProtection, (req, res) => {
   // const query = `SELECT * FROM users WHERE id = ${req.params.id}`;
   const query = `SELECT * FROM users WHERE id = ?`;
   // new
@@ -30,7 +41,7 @@ app.get('/api/user/:id', (req, res) => {
   });
 });
 
-app.post('/api/user/:id/change-email', (req, res) => {
+app.post('/api/user/:id/change-email', csrfProtection, (req, res) => {
   const newEmail = req.body.email;
   // const query = `UPDATE users SET email = '${newEmail}' WHERE id = ${req.params.id}`;
   const query = `UPDATE users SET email = ? WHERE id = ?`;
@@ -48,7 +59,7 @@ app.post('/api/user/:id/change-email', (req, res) => {
   });
 });
 
-app.get('/api/file', (req, res) => {
+app.get('/api/file', csrfProtection, (req, res) => {
   const __filename = fileURLToPath(import.meta.url); 
   const __dirname = path.dirname(__filename); 
 

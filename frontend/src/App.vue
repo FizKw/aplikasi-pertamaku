@@ -1,12 +1,26 @@
 <script setup>
 import { ref } from 'vue';
 import CommentSection from './components/CommentSection.vue';
+import axios from "axios";
+import DOMPurify from 'dompurify';
 
 const HOST_NAME = `${import.meta.env.VITE_API_URL}` || 'http://localhost';
 
 const userId = ref('');
 const users = ref(null);
 const newEmail = ref('');
+
+const sanitizeHtml = (inputHtml) => {
+  return DOMPurify.sanitize(inputHtml);  
+}
+
+const fetchCsrfToken = async () =>{
+  axios.get('api/getcsrftoken').then((response) => {
+    axios.default.headers.common['X-CSRF-TOKEN'] = response.data.csrfToken
+  }, (err) => {
+    console.log(err)
+  })
+}
 
 const getUser = async () => {
   const response = await fetch(`${HOST_NAME}/api/user/${userId.value}`);
@@ -37,8 +51,8 @@ const changeEmail = async () => {
     </div>
     <div v-if="users">
       <template v-for="user in users">
-        <h2>{{ user.name }}</h2>
-        <p>Email: {{ user.email }}</p>
+        <h2>{{ sanitizeHtml(user.name) }}</h2>
+        <p>Email: {{ sanitizeHtml(user.email) }}</p>
         <hr />
       </template>
     </div>

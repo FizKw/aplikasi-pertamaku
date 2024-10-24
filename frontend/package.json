@@ -10,6 +10,8 @@
     "serve": "serve -s dist -p 5173"
   },
   "dependencies": {
+    "axios": "^1.7.7",
+    "dompurify": "^3.1.7",
     "vue": "^3.4.37"
   },
   "devDependencies": {
