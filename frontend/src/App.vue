@@ -14,11 +14,6 @@ const sanitizeHtml = (inputHtml) => {
   return DOMPurify.sanitize(inputHtml);  
 }
 
-axios.defaults.withCredentials = true;
-axios.defaults.withXSRFToken = true;
-
-
-
 const getUser = async () => {
   await axios.get(`${HOST_NAME}/api/user/${userId.value}`).then((response) => {
     users.value = response.data;
@@ -32,10 +27,7 @@ const changeEmail = async () => {
   await axios.post(`${HOST_NAME}/api/user/${userId.value}/change-email`, {
       email: newEmail.value,
   });
-
-
 };
-
 
 </script>
 

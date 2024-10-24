@@ -20,10 +20,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'CSRF-Token'],
 }));
 
-var csrfProtect = csrf({
-  cookie: true, 
-  httpOnly: false,
-})
+
 
 
 const connection = new sqlite3.Database('./db/aplikasi.db')
@@ -43,7 +40,7 @@ app.get('/api/user/:id', (req, res) => {
   });
 });
 
-app.post('/api/user/:id/change-email', csrfProtect, (req, res) => {
+app.post('/api/user/:id/change-email', (req, res) => {
   const newEmail = req.body.email;
   const query = `UPDATE users SET email = ? WHERE id = ?`;
   const params = [newEmail, req.params.id];
