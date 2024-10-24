@@ -8,20 +8,22 @@ import csrf from 'csurf';
 
 const app = express();
 // New
-app.use(cookieParser);
+app.use(cookieParser());
 app.use(express.json())
 // New
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
   origin: '*',
+  credentials: true,
   optionsSuccessStatus: 200,
 }));
 
 // CSRF
-app.use(csrf({
-  cookie: true,
-  sameSite: 'strict',
-}));
+var csrfProtect = csrf({
+  cookie: true, 
+})
+// sameSite: 'strict'
+app.use(csrfProtect)
 
 app.use(function (req, res, next) {
   res.cookie('XSRF-TOKEN', req.csrfToken());
@@ -31,7 +33,7 @@ app.use(function (req, res, next) {
 
 const connection = new sqlite3.Database('./db/aplikasi.db')
 
-
+// 
 app.get('api/getcsrftoken', (req, res) => {
   return res.json({csrfToken: req.csrfToken() });
 });

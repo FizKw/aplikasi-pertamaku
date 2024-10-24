@@ -27,7 +27,7 @@ axios.defaults.withCredentials = true;
 const getUser = async () => {
   await axios.get(`${HOST_NAME}/api/user/${userId.value}`).then((response) => {
     users.value = response.json();
-    console.log(response.json())
+    console.log(response.data)
   });
 
   // const response = await fetch(`${HOST_NAME}/api/user/${userId.value}`);
@@ -36,7 +36,7 @@ const getUser = async () => {
 };
 
 const changeEmail = async () => {
-  await axios.post(`${HOST_NAME}/api/user/${userId.value}/change-emai;`, {
+  await axios.post(`${HOST_NAME}/api/user/${userId.value}/change-email`, {
       email: newEmail.value,
   });
 
