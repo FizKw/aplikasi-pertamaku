@@ -16,13 +16,7 @@ const sanitizeHtml = (inputHtml) => {
 
 axios.defaults.withCredentials = true;
 
-// const fetchCsrfToken = async () =>{
-//   axios.get('api/getcsrftoken').then((response) => {
-//     axios.default.headers.common['X-CSRF-TOKEN'] = response.data.csrfToken
-//   }, (err) => {
-//     console.log(err)
-//   })
-// }
+
 
 const getUser = async () => {
   await axios.get(`${HOST_NAME}/api/user/${userId.value}`).then((response) => {
@@ -30,9 +24,7 @@ const getUser = async () => {
     console.log(response.data)
   });
 
-  // const response = await fetch(`${HOST_NAME}/api/user/${userId.value}`);
-  // const response = await fetch(`http://localhost:3000/api/user/${userId.value}`);
-  // users.value = await response.json();
+
 };
 
 const changeEmail = async () => {
@@ -40,15 +32,7 @@ const changeEmail = async () => {
       email: newEmail.value,
   });
 
-    // await fetch('http://localhost:3000/api/change-email', {
-  // await fetch(`${HOST_NAME}/api/user/${userId.value}/change-email` , {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/x-www-form-urlencoded',
-  //   },
-  //   body: new URLSearchParams({ email: newEmail.value }).toString(),
-    // body: `email=${newEmail.value}`,
-  // });
+
 };
 
 
