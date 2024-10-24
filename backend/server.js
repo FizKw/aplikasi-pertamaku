@@ -10,10 +10,14 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+
+
 app.use(cors({
   origin: '*',
   credentials: true,
   optionsSuccessStatus: 200,
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'CSRF-Token'],
 }));
 
 var csrfProtect = csrf({
@@ -21,12 +25,9 @@ var csrfProtect = csrf({
   sameSite: 'strict'
 })
 
-const connection = new sqlite3.Database('./db/aplikasi.db')
-
 app.use(csrfProtect)
 
-
-
+const connection = new sqlite3.Database('./db/aplikasi.db')
 
 
 app.get('api/getcsrftoken', (req, res) => {
@@ -37,8 +38,7 @@ app.get('api/user/:id', (req, res) => {
   const query = `SELECT * FROM users WHERE id = ?`;
   const params = [req.params.id];
   
-  console.log(query)
-    connection.all(query, params, (error, results) => {
+  connection.all(query, params, (error, results) => {
     if(error) return res.status(500).json({ error: error.message });
     res.json(results);
   });
