@@ -3,8 +3,7 @@ services:
     build: 
       context: ./backend
       dockerfile: Dockerfile
-      args:
-        - API_VALUE: "http://20.11.19.64"
+      
     container_name: backend
     networks:
       - node-network
@@ -19,6 +18,8 @@ services:
     build: 
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        API_URL: "http://20.11.19.64"
     container_name: frontend
     networks:
       - node-network

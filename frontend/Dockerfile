@@ -1,4 +1,5 @@
 FROM node:20 
+ARG API_URL
 ENV VITE_API_URL ${API_URL}
 WORKDIR /app/frontend
 COPY package*.json ./
