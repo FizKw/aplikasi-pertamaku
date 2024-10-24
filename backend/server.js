@@ -24,15 +24,17 @@ var csrfProtect = csrf({
   sameSite: 'strict'
 })
 
+const connection = new sqlite3.Database('./db/aplikasi.db')
+
 app.use(csrfProtect)
 
-app.use(function (req, res, next) {
-  res.cookie('XSRF-TOKEN', req.csrfToken());
-  res.locals.csrfToken = req.csrfToken();
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.cookie('XSRF-TOKEN', req.csrfToken());
+//   res.locals.csrfToken = req.csrfToken();
+//   next();
+// });
 
-const connection = new sqlite3.Database('./db/aplikasi.db')
+
 
 // 
 app.get('api/getcsrftoken', (req, res) => {
@@ -54,7 +56,7 @@ app.get('api/user/:id', (req, res) => {
   });
 });
 
-app.post('api/user/:id/change-email',(req, res) => {
+app.post('api/user/:id/change-email', csrfProtect, (req, res) => {
   const newEmail = req.body.email;
   // const query = `UPDATE users SET email = '${newEmail}' WHERE id = ${req.params.id}`;
   const query = `UPDATE users SET email = ? WHERE id = ?`;
