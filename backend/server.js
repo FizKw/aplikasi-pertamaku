@@ -22,9 +22,9 @@ app.use(cors({
 
 var csrfProtect = csrf({
   cookie: true, 
+  httpOnly: false,
 })
 
-app.use(csrfProtect)
 
 const connection = new sqlite3.Database('./db/aplikasi.db')
 
