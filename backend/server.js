@@ -7,6 +7,8 @@ import cookieParser from 'cookie-parser';
 import csrf from 'csurf';
 
 const app = express();
+// New
+app.use(cookieParser);
 app.use(express.json())
 // New
 app.use(express.urlencoded({ extended: true }));
@@ -14,15 +16,16 @@ app.use(cors({
   origin: '*',
   optionsSuccessStatus: 200,
 }));
+
 // CSRF
 app.use(csrf({
   cookie: true,
   sameSite: 'strict',
 }));
-// New
-app.use(cookieParser);
+
 app.use(function (req, res, next) {
   res.cookie('XSRF-TOKEN', req.csrfToken());
+  res.locals.csrfToken = req.csrfToken();
   next();
 });
 
