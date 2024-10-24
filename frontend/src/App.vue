@@ -14,13 +14,15 @@ const sanitizeHtml = (inputHtml) => {
   return DOMPurify.sanitize(inputHtml);  
 }
 
-const fetchCsrfToken = async () =>{
-  axios.get('api/getcsrftoken').then((response) => {
-    axios.default.headers.common['X-CSRF-TOKEN'] = response.data.csrfToken
-  }, (err) => {
-    console.log(err)
-  })
-}
+axios.defaults.withCredentials = true;
+
+// const fetchCsrfToken = async () =>{
+//   axios.get('api/getcsrftoken').then((response) => {
+//     axios.default.headers.common['X-CSRF-TOKEN'] = response.data.csrfToken
+//   }, (err) => {
+//     console.log(err)
+//   })
+// }
 
 const getUser = async () => {
   await axios.get(`${HOST_NAME}/api/user/${userId.value}`).then((response) => {
