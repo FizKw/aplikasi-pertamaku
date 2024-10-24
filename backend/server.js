@@ -48,7 +48,7 @@ app.get('/api/user/:id', (req, res) => {
   });
 });
 
-app.post('/api/user/:id/change-email', csrfProtection, (req, res) => {
+app.post('/api/user/:id/change-email',(req, res) => {
   const newEmail = req.body.email;
   // const query = `UPDATE users SET email = '${newEmail}' WHERE id = ${req.params.id}`;
   const query = `UPDATE users SET email = ? WHERE id = ?`;
