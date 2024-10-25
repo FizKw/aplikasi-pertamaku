@@ -4,8 +4,11 @@ import { fileURLToPath } from 'url';
 import sqlite3 from 'sqlite3';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const HOST_NAME = `${import.meta.env.VITE_API_URL}` || 'http://localhost';
+
+const HOST_NAME = `${process.env.API_URL}` || 'http://localhost';
 
 const app = express();
 app.use(cookieParser());
