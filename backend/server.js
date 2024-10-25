@@ -58,6 +58,11 @@ app.get('/api/file', (req, res) => {
   const fileName = path.basename(req.query.name);
   const filePath = path.join(__dirname, 'files', fileName);
 
+  const allowedFiles = ['file.txt'];
+  if(!allowedFiles.includes(req.query.name)){
+    return res.status(403).send('Forbidden');
+  }
+
   res.sendFile(filePath, (e) => {
     if(e) res.status(404).send('File not found');
   })
