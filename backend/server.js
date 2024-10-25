@@ -4,7 +4,8 @@ import { fileURLToPath } from 'url';
 import sqlite3 from 'sqlite3';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import csrf from 'csurf';
+
+const HOST_NAME = `${import.meta.env.VITE_API_URL}` || 'http://localhost';
 
 const app = express();
 app.use(cookieParser());
@@ -13,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use(cors({
-  origin: 'http://localhost',
+  origin: `${HOST_NAME}`,
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST'],
