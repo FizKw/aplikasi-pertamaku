@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use(cors({
-  origin: '*',
+  origin: 'http://localhost',
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST'],
@@ -24,8 +24,6 @@ app.use(cors({
 
 
 const connection = new sqlite3.Database('./db/aplikasi.db')
-
-
 app.get('api/getcsrftoken', (req, res) => {
   return res.json({csrfToken: req.csrfToken() });
 });
@@ -62,6 +60,10 @@ app.get('/api/file', (req, res) => {
   res.sendFile(filePath, (e) => {
     if(e) res.status(404).send('File not found');
   })
+});
+
+app.all("*", (_req, res) => {
+  return nootFound(res, "Route not found");
 });
 
 app.listen(3000, () => {

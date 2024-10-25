@@ -18,14 +18,25 @@ const getUser = async () => {
   await axios.get(`${HOST_NAME}/api/user/${userId.value}`).then((response) => {
     users.value = response.data;
     console.log(response.data)
+  })
+  .catch((e) => {
+    console.log(e);
   });
 
 
 };
 
 const changeEmail = async () => {
+  const validateEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail.value);
+  if (!validateEmail){
+    alert("Please Enter a valid email.");
+    return;
+  }
   await axios.post(`${HOST_NAME}/api/user/${userId.value}/change-email`, {
       email: newEmail.value,
+  })
+  .catch((e) =>{
+    console.log(e);
   });
 };
 
